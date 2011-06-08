@@ -2,9 +2,8 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five">
 
-  <five:registerPackage package="." initialize=".initialize" />
+  <include package="Products.PluggableAuthService" />
 
-  <include package="silva.pas.base" />
-  <include package="silva.pas.membership" />
+  <five:registerPackage package="." initialize=".initialize" />
 
 </configure>

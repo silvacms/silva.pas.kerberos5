@@ -35,6 +35,8 @@ setup(name='silva.pas.kerberos5',
       zip_safe=False,
       install_requires=[
         "setuptools",
+        "zope.interface",
+        "Products.PluggableAuthService",
         ],
       tests_require = tests_require,
       extras_require = {'test': tests_require},
