@@ -6,9 +6,11 @@
         tal:replace="structure here/manage_tabs">Tabs</h2>
 
     <p class="form-help">Please input the configuration for Kerberos 5.</p>
-    <p class="form-help">The definition of KDC, if not properly
-    defined in the DNS should be done in the krb5.conf configuration
-    file. Please use the default configuration by default.</p>
+    <p class="form-help">
+      The definition of KDC, if not properly defined in the DNS should
+      be done in the krb5.conf configuration file. Please use the
+      default configuration file instead of an alternate one.
+    </p>
 
    <form action="manage_editKerberos5Plugin" method="POST">
 

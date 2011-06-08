@@ -3,6 +3,8 @@
 # See also LICENSE.txt
 # $Id$
 
+import logging
+
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
 
@@ -15,9 +17,11 @@ from Products.PluggableAuthService.utils import classImplements
 from Products.PluggableAuthService.plugins.BasePlugin import BasePlugin
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
+logger = logging.getLogger('silva.pas.kerberos5')
+
+
 class IKerberos5Plugin(Interface):
     pass
-
 
 
 def manage_addKerberos5Plugin(self, id, title='', RESPONSE=None ):
@@ -70,6 +74,27 @@ class Kerberos5Plugin(BasePlugin):
 
     def getConfigFile(self):
         return self._config_file
+
+    def authenticateCredentials(self, credentials):
+        login = credentials.get('login')
+        if login is not None:
+            kwargs = {'username': login,
+                      'password': credentials.get('password', '')}
+            if self._realm:
+                kwargs['realm'] = self._realm
+            if self._config_file:
+                kwargs['config'] = self._config_file
+            try:
+                user = _kerberos5.KerberosUser(**kwargs)
+                if user.is_valid():
+                    username = user.get_username()
+                    principal = user.get_principal()
+                    logger.info('Authentication succeed for "%s" (%s)' % (username, principal))
+                    return (username, principal)
+            except (_kerberos5.KerberosError, _kerberos5.KerberosPasswordExpired) as error:
+                logger.info('Failed to authenticate "%s": %s' % (login, error.args[0]))
+                pass
+        return (None, None)
 
 
 classImplements(Kerberos5Plugin,

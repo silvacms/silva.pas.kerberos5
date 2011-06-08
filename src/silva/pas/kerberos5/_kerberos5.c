@@ -347,6 +347,23 @@ static PyObject * KerberosUser_get_principal(pykrb_KerberosUserObject *self) {
   return rvalue;
 }
 
+static PyObject * KerberosUser_get_username(pykrb_KerberosUserObject *self) {
+  char      * princ_name;
+  PyObject  * rvalue;
+
+  self->dt.krbret = krb5_unparse_name_flags(self->dt.context,
+                                            self->dt.princ,
+                                            KRB5_PRINCIPAL_UNPARSE_SHORT,
+                                            &princ_name);
+  if (self->dt.krbret) {
+    pykrb_error(&(self->dt));
+    return NULL;
+  };
+  rvalue = Py_BuildValue("s", princ_name);
+  free(princ_name);
+  return rvalue;
+}
+
 static PyObject * KerberosUser_is_valid(pykrb_KerberosUserObject *self)
 {
   PyObject  * is_valid = Py_False;
@@ -447,12 +464,14 @@ static PyMethodDef KrbMethods[] = {
 static PyMethodDef KerberosUserMethods[] = {
   {"get_principal", (PyCFunction) KerberosUser_get_principal, METH_NOARGS,
    "Return the current principal." },
+  {"get_username", (PyCFunction) KerberosUser_get_username, METH_NOARGS,
+   "Return the current principal without the realm (if it is the default)." },
   {"is_valid", (PyCFunction) KerberosUser_is_valid, METH_NOARGS,
    "Return true is the user is valid." },
   {"change_password", (PyCFunction) KerberosUser_change_password, METH_VARARGS,
    "Change the current user password." },
   {"set_password_for", (PyCFunction) KerberosUser_set_password_for, METH_VARARGS,
-   "Change password for the given user. (set_password_for('alfred', 'pass'))."},
+   "Change password for the given user. (set_password_for('alfred', 'password'))."},
   {NULL, NULL, 0, NULL, },
 };
 
