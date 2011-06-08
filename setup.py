@@ -2,7 +2,7 @@
 # See also LICENSE.txt
 # $Id$
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages, Extension
 import os
 
 version = '1.0dev'
@@ -38,4 +38,8 @@ setup(name='silva.pas.kerberos5',
         ],
       tests_require = tests_require,
       extras_require = {'test': tests_require},
+      ext_modules = [Extension('silva.pas.kerberos5._kerberos5',
+                               sources = ['src/silva/pas/kerberos5/_kerberos5.c'],
+                               libraries = ['com_err', 'k5crypto', 'krb5'])
+                     ],
       )
