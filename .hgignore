@@ -1,5 +1,7 @@
-.pyo
-.pyc
-.egg-info
+\.o
+\.so
+\.pyo
+\.pyc
+\.egg-info
 ~
 #
