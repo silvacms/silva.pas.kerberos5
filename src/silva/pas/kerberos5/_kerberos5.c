@@ -331,7 +331,7 @@ static void KerberosUser_dealloc(pykrb_KerberosUserObject *self) {
   pykrb_free(&(self->dt));
 }
 
-static PyObject * KerberosUser_principal(pykrb_KerberosUserObject *self) {
+static PyObject * KerberosUser_get_principal(pykrb_KerberosUserObject *self) {
   char      * princ_name;
   PyObject  * rvalue;
 
@@ -445,7 +445,7 @@ static PyMethodDef KrbMethods[] = {
 };
 
 static PyMethodDef KerberosUserMethods[] = {
-  {"principal", (PyCFunction) KerberosUser_principal, METH_NOARGS,
+  {"get_principal", (PyCFunction) KerberosUser_get_principal, METH_NOARGS,
    "Return the current principal." },
   {"is_valid", (PyCFunction) KerberosUser_is_valid, METH_NOARGS,
    "Return true is the user is valid." },
