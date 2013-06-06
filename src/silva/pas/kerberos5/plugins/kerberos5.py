@@ -91,7 +91,7 @@ class Kerberos5Plugin(BasePlugin):
                     username = user.get_username()
                     principal = user.get_principal()
                     logger.info('Authentication succeed for "%s" (%s)' % (username, principal))
-                    return (username, principal)
+                    return (username, username)
             except (_kerberos5.KerberosError, _kerberos5.KerberosPasswordExpired), error:
                 logger.info('Failed to authenticate "%s" (%s)' % (login, error.args[0]))
                 pass
