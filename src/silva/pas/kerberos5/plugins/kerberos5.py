@@ -97,7 +97,7 @@ class Kerberos5Plugin(BasePlugin):
                 logger.info('Failed to authenticate "%s" (%s)',
                             login, error.args[0])
                 pass
-        return (None, None)
+        return None
 
 
 classImplements(Kerberos5Plugin,
