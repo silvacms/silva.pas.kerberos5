@@ -85,15 +85,17 @@ class Kerberos5Plugin(BasePlugin):
             if self._config_file:
                 kwargs['config'] = self._config_file
             try:
-                logger.info('verify user %s' % login)
+                logger.info('Verify user %s' % login)
                 user = _kerberos5.KerberosUser(**kwargs)
                 if user.is_valid():
                     username = user.get_username()
                     principal = user.get_principal()
-                    logger.info('Authentication succeed for "%s" (%s)' % (username, principal))
+                    logger.info('Authentication succeed for "%s" (%s)',
+                                username, principal)
                     return (username, username)
             except (_kerberos5.KerberosError, _kerberos5.KerberosPasswordExpired), error:
-                logger.info('Failed to authenticate "%s" (%s)' % (login, error.args[0]))
+                logger.info('Failed to authenticate "%s" (%s)',
+                            login, error.args[0])
                 pass
         return (None, None)
 
