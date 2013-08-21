@@ -180,7 +180,7 @@ static char     pykrb_save_cache(pykrb_data_t *kd)
 
 static char     pykrb_get_krbtgt_creds(pykrb_data_t *kd)
 {
-  krb5_int32        now = time(0);
+  time_t            now = time(0);
   krb5_principal    krbtgt;
 
   // FIXME : Gruiiik
