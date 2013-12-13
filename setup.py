@@ -13,7 +13,7 @@ tests_require = [
 
 setup(name='silva.pas.kerberos5',
       version=version,
-      description="Kerberos 5 authentication for PluggableAuthService in Silva",
+      description="Kerberos 5 authentication for PAS in Silva CMS",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
@@ -26,7 +26,7 @@ setup(name='silva.pas.kerberos5',
       keywords='kerberos5 pas silva',
       author='Sylvain Viollon',
       author_email='info@infrae.com',
-      url='https://hg.infrae.com/silva.pas.kerberos5',
+      url='https://github.com/silvacms/silva.pas.kerberos5',
       license='BSD',
       package_dir={'': 'src'},
       packages=find_packages('src'),
